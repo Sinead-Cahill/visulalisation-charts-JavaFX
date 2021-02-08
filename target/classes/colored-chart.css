@@ -1,0 +1,27 @@
+/**
+ *   file: colored-chart.css
+ */
+
+.root {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Bar Chart */
+.default-color.chart-bar { -fx-bar-fill: #4682B4; }
+.default-color1.chart-bar { -fx-bar-fill: #7ba7cc; }
+
+/* Line Graph */
+.chart-series-line { -fx-stroke: #4682B4; }
+.default-color.chart-series-line-symbol { -fx-background-color: #4682B4; }
+.default-color1.chart-series-line-symbol { -fx-background-color: #7ba7cc; }
+
+/* Area Chart */
+.chart-series-area-line { -fx-stroke: #4682B4; -fx-stroke-width: 2px; }
+.chart-series-area-fill { -fx-fill: #4682B466; }
+.default-color.chart-symbol { -fx-background-color: #4682B4; }
+.default-color1.chart-series-symbol { -fx-background-color: #7ba7cc; }
+
+/* Scatter Chart */
+.default-color.chart-symbol { -fx-background-color: #4682B4; }
+.default-color1.chart-symbol { -fx-background-color: #7ba7cc; }
