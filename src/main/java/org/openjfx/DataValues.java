@@ -16,4 +16,5 @@ public class DataValues {
     public String getMonth(){ return day.substring(day.indexOf("-")+1); }
 
     public String toString(){ return day + " : " + cases; }
+
 }
