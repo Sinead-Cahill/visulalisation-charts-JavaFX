@@ -2,19 +2,21 @@ package org.openjfx;
 
 public class DataValues {
     private int cases;
-    private String day;
+    private String date;
 
-    public DataValues(String day, int cases){
-        this.day = day;
+    public DataValues(String date, int cases){
+        this.date = date;
         this.cases = cases;
     }
 
-    public String getDate(){ return day; }
+    public String getDate(){ return date; }
 
     public int getCases(){ return cases; }
 
-    public String getMonth(){ return day.substring(day.indexOf("-")+1); }
+    public String getDay() { return date.substring(0, date.indexOf("-")); }
 
-    public String toString(){ return day + " : " + cases; }
+    public String getMonth(){ return date.substring(date.indexOf("-")+1); }
+
+    public String toString(){ return date + " : " + cases; }
 
 }

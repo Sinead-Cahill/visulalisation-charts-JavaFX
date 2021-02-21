@@ -1,12 +1,15 @@
 package org.openjfx.interactiveChart;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -24,7 +27,7 @@ public class PictogramInteractive extends Pane {
     private double noOfCases;
     private String dateLbl;
     private List<String> datesList;
-    private StackPane hoverOverPane;
+    private Group hoverOverPane;
 
     public PictogramInteractive(ArrayList<DataValues> dataValues, Image popImg, Image caseImg, Image halfImg){
         this.dataValues = dataValues; //Data List
@@ -34,7 +37,6 @@ public class PictogramInteractive extends Pane {
         population = 4900000; //Ireland Population
         valuePerIcon = 10000;
         pplPerRow = 55;
-        datesList = new ArrayList<>();
         dateLbl = null;
         noOfCases = 0;
         noOfMonths = 3; //Start showing 3 months
@@ -68,23 +70,26 @@ public class PictogramInteractive extends Pane {
 
         allDataBtn.setOnAction(e -> {
             noOfMonths = 12;
-            container.getChildren().remove(1);
-            container.getChildren().add(1, showPictogram());
+            container.getChildren().remove(1); container.getChildren().add(1, showPictogram());
+            hoverOverPane = hoverOverLegend(); hoverOverPane.setVisible(false);
+            getChildren().remove(1); getChildren().add(hoverOverPane);
             allDataBtn.setDisable(true); threeMonthsBtn.setDisable(false); oneMonthBtn.setDisable(false); });
         threeMonthsBtn.setOnAction(e -> {
             noOfMonths = 3;
-            container.getChildren().remove(1);
-            container.getChildren().add(1, showPictogram())
-            ; allDataBtn.setDisable(false); threeMonthsBtn.setDisable(true); oneMonthBtn.setDisable(false); });
+            container.getChildren().remove(1); container.getChildren().add(1, showPictogram());
+            hoverOverPane = hoverOverLegend(); hoverOverPane.setVisible(false);
+            getChildren().remove(1); getChildren().add(hoverOverPane);
+            allDataBtn.setDisable(false); threeMonthsBtn.setDisable(true); oneMonthBtn.setDisable(false); });
         oneMonthBtn.setOnAction(e -> {
             noOfMonths = 1;
-            container.getChildren().remove(1);
-            container.getChildren().add(1, showPictogram());
+            container.getChildren().remove(1); container.getChildren().add(1, showPictogram());
+            hoverOverPane = hoverOverLegend(); hoverOverPane.setVisible(false);
+            getChildren().remove(1); getChildren().add(hoverOverPane);
             allDataBtn.setDisable(false); threeMonthsBtn.setDisable(false); oneMonthBtn.setDisable(true); });
 
 
         if(getChildren().size() > 0){
-            getChildren().remove(0);
+            getChildren().removeAll();
         }
         getChildren().addAll(container, hoverOverPane);
     }
@@ -122,6 +127,7 @@ public class PictogramInteractive extends Pane {
     private double getNumberOfCases(int noOfMonths){
         noOfCases = 0;
 
+        datesList = new ArrayList<>();
         int temp = dataValues.get(0).getCases();
         int i = 1;
 
@@ -131,9 +137,13 @@ public class PictogramInteractive extends Pane {
             if(i <= dataValues.size()) {
                 if(i == dataValues.size()) {
                     datesList.add(d.getMonth() +  ": " + temp);
+                    temp = 0;
                 }else if (d.getMonth().equals(dataValues.get(i).getMonth())) {
+                    if(d.getDay().equals("01")){
+                        temp += d.getCases();
+                    }
                     temp += dataValues.get(i).getCases();
-                } else {
+                }else {
                     datesList.add(d.getMonth() + ": " + temp);
                     temp = 0;
                 }
@@ -213,6 +223,8 @@ public class PictogramInteractive extends Pane {
             personIcon.setOnMouseEntered(e ->{
                 personIcon.setEffect(colorAdjust);
                 hoverOverPane.setVisible(true);
+                hoverOverPane.setLayoutX(e.getSceneX());
+                hoverOverPane.setLayoutY(e.getSceneY()-80);
             });
             personIcon.setOnMouseExited(e -> {
                 personIcon.setEffect(null);
@@ -225,28 +237,46 @@ public class PictogramInteractive extends Pane {
 
     //Hover Over Case Icon Legend
     //Shows case value per month
-    private StackPane hoverOverLegend(){
+    private Group hoverOverLegend(){
         String temp = null;
 
-        if(noOfMonths == 12){
-            for(int i=0; i<datesList.size(); i++){
-                temp += datesList.get(i) + "\n";
-            }
+        Rectangle outline = new Rectangle(120,90);
+
+        if(noOfMonths == 1){
+            temp = datesList.get(datesList.size()-1);
         }else if(noOfMonths == 3){
-            for(int i=datesList.size()-(noOfMonths+1); i < datesList.size(); i++){
-                temp += datesList.get(i) + "\n";
+            for(int i=datesList.size()-(noOfMonths); i < datesList.size(); i++){
+                if(temp == null){
+                    temp = datesList.get(i) + "\n";
+                }else {
+                    temp += datesList.get(i) + "\n";
+                }
             }
+        }else{
+            for(int i=0; i<datesList.size(); i++){
+                if (temp == null) {
+                    temp = datesList.get(i) + "\n";
+                } else{
+                    temp += datesList.get(i) + "\n";
+                }
+            }
+            outline = new Rectangle(120,200);
         }
 
-        Label casesPerMonth = new Label(temp);
-
-        Rectangle outline = new Rectangle(200,80);
         outline.setFill(Color.TRANSPARENT);
         outline.setStyle("-fx-stroke-width: 2; -fx-stroke: black; -fx-fill: white;");
+        outline.setArcHeight(30);
+        outline.setArcWidth(30);
+
+        Label casesPerMonth = new Label(temp);
+        casesPerMonth.setStyle("-fx-font: 15 Arial, Helvetica, sans-serif;");
 
         StackPane pane = new StackPane();
         pane.getChildren().addAll(outline, casesPerMonth);
-        return pane;
+
+        Group group = new Group();
+        group.getChildren().add(pane);
+        return group;
     }
 
     //Create Legend
