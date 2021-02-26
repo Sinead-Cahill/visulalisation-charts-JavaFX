@@ -24,7 +24,7 @@ public class AreaChartClass extends Pane {
 
     public void displayGraph(){
         CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Date (2 Week Period)");
+        xAxis.setLabel("Date");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Number of Cases");
 

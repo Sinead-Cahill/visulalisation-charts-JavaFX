@@ -28,6 +28,8 @@ public class LineGraphInteractive extends Pane {
     }
 
     public void displayGraph(){
+        getChildren().clear();
+
         // Zoom Buttons
         Button allDataBtn = new Button("All Data");
         Button threeMonthsBtn = new Button("3 Months");
@@ -53,6 +55,9 @@ public class LineGraphInteractive extends Pane {
         threeMonthsBtn.setOnAction(e -> { lineGraphPane.setCenter(showThreeMonths()); allDataBtn.setDisable(false); threeMonthsBtn.setDisable(true); oneMonthBtn.setDisable(false); });
         oneMonthBtn.setOnAction(e -> { lineGraphPane.setCenter(showOneMonth());  allDataBtn.setDisable(false); threeMonthsBtn.setDisable(false); oneMonthBtn.setDisable(true); });
 
+        if(getChildren().size() > 0){
+            getChildren().removeAll();
+        }
         getChildren().add(lineGraphPane);
     }
 

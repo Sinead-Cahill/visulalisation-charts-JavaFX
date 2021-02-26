@@ -43,6 +43,8 @@ public class PictogramInteractive extends Pane {
     }
 
     public void displayGraph() {
+        getChildren().clear();
+
         //Zoom Buttons
         Button allDataBtn = new Button("All Data");
         Button threeMonthsBtn = new Button("3 Months"); threeMonthsBtn.setDisable(true);
@@ -87,10 +89,6 @@ public class PictogramInteractive extends Pane {
             getChildren().remove(1); getChildren().add(hoverOverPane);
             allDataBtn.setDisable(false); threeMonthsBtn.setDisable(false); oneMonthBtn.setDisable(true); });
 
-
-        if(getChildren().size() > 0){
-            getChildren().removeAll();
-        }
         getChildren().addAll(container, hoverOverPane);
     }
 

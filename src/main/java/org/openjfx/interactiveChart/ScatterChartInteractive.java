@@ -28,6 +28,8 @@ public class ScatterChartInteractive extends Pane {
     }
 
     public void displayGraph(){
+        getChildren().clear();
+
         // Zoom Buttons
         Button allDataBtn = new Button("All Data");
         Button threeMonthsBtn = new Button("3 Months");
@@ -64,7 +66,6 @@ public class ScatterChartInteractive extends Pane {
         yAxis.setLabel("Number of Cases");
 
         ScatterChart<String,Number> scatterChart = new ScatterChart(xAxis,yAxis);
-        scatterChart.getStylesheets().add(("colored-chart.css"));
         scatterChart.setLegendVisible(false);
 
         XYChart.Series series = new XYChart.Series();

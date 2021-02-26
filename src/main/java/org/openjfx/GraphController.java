@@ -62,7 +62,7 @@ public class GraphController extends Application {
         scatterChartInteractive = new ScatterChartInteractive(dataValues,graphPane);
         pictogramInteractive = new PictogramInteractive(dataValues, popImg, caseImg, halfImg);
 
-        Node[] shapes = {barChart,hBarChart,lineGraph,areaChart,pictogramChart,barChartInteractive, hBarChartInteractive, lineGraphInteractive, areaChartInteractive, scatterChartInteractive, pictogramInteractive};
+        Node[] shapes = {barChart,hBarChart,lineGraph,areaChart,scatterChart,pictogramChart,barChartInteractive, hBarChartInteractive, lineGraphInteractive, areaChartInteractive, scatterChartInteractive, pictogramInteractive};
 
         //Title of Project
         Label title = new Label("Spread of COVID-19 in Ireland");
@@ -122,16 +122,16 @@ public class GraphController extends Application {
         hBarChartBtn.setOnAction(e -> {btnAction(graphPane, shapes, 1, graphTitle, "Horizontal Bar Chart"); btnEffect(buttons,hBarChartBtn); hBarChart.displayGraph(); });
         lineGraphBtn.setOnAction(e -> {btnAction(graphPane, shapes, 2, graphTitle, "Line Graph"); btnEffect(buttons,lineGraphBtn); lineGraph.displayGraph(); });
         areaChartBtn.setOnAction(e -> {btnAction(graphPane, shapes, 3, graphTitle, "Area Chart"); btnEffect(buttons,areaChartBtn); areaChart.displayGraph(); });
-//        scatterChartBtn.setOnAction(e -> {btnAction(graphPane, shapes, 4, graphTitle, "Scatter Chart"); btnEffect(buttons,scatterChartBtn); scatterChart.displayGraph(); });
-        pictogramBtn.setOnAction(e -> {btnAction(graphPane, shapes, 4, graphTitle, "Pictogram"); btnEffect(buttons,pictogramBtn); pictogramChart.displayGraph(); });
+        scatterChartBtn.setOnAction(e -> {btnAction(graphPane, shapes, 4, graphTitle, "Scatter Chart"); btnEffect(buttons,scatterChartBtn); scatterChart.displayGraph(); });
+        pictogramBtn.setOnAction(e -> {btnAction(graphPane, shapes, 5, graphTitle, "Pictogram"); btnEffect(buttons,pictogramBtn); pictogramChart.displayGraph(); });
 
 
-        barChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 5, graphTitle, "Bar Chart"); btnEffect(buttons,barChartInteractiveBtn); barChartInteractive.displayGraph(); });
-        hBarChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 6, graphTitle, "Horizontal Bar Chart"); btnEffect(buttons,hBarChartInteractiveBtn); hBarChartInteractive.displayGraph(); });
-        lineGraphInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 7, graphTitle, "Line Graph"); btnEffect(buttons,lineGraphInteractiveBtn); lineGraphInteractive.displayGraph(); });
-        areaChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 8, graphTitle, "Area Chart"); btnEffect(buttons,areaChartInteractiveBtn); areaChartInteractive.displayGraph(); });
-        scatterChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 9, graphTitle, "Scatter Chart"); btnEffect(buttons,scatterChartInteractiveBtn); scatterChartInteractive.displayGraph(); });
-        pictogramInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 10, graphTitle, "Pictogram"); btnEffect(buttons,pictogramInteractiveBtn); pictogramInteractive.displayGraph(); });
+        barChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 6, graphTitle, "Bar Chart"); btnEffect(buttons,barChartInteractiveBtn); barChartInteractive.displayGraph(); });
+        hBarChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 7, graphTitle, "Horizontal Bar Chart"); btnEffect(buttons,hBarChartInteractiveBtn); hBarChartInteractive.displayGraph(); });
+        lineGraphInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 8, graphTitle, "Line Graph"); btnEffect(buttons,lineGraphInteractiveBtn); lineGraphInteractive.displayGraph(); });
+        areaChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 9, graphTitle, "Area Chart"); btnEffect(buttons,areaChartInteractiveBtn); areaChartInteractive.displayGraph(); });
+        scatterChartInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 10, graphTitle, "Scatter Chart"); btnEffect(buttons,scatterChartInteractiveBtn); scatterChartInteractive.displayGraph(); });
+        pictogramInteractiveBtn.setOnAction(e -> {btnAction(graphPane, shapes, 11, graphTitle, "Pictogram"); btnEffect(buttons,pictogramInteractiveBtn); pictogramInteractive.displayGraph(); });
 
         barChartBtn.fire();
 

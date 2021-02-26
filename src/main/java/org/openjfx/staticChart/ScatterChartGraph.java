@@ -1,5 +1,8 @@
 package org.openjfx.staticChart;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -30,12 +33,21 @@ public class ScatterChartGraph extends Pane {
         for(DataValues d: dataValues){
             if(d.getMonth().equals("Oct") || d.getMonth().equals("Nov") || d.getMonth().equals("Dec")){
                 XYChart.Data<String, Number> data = new XYChart.Data(d.getDate(), d.getCases());
+                data.nodeProperty().addListener(new ChangeListener<Node>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Node> ov, Node oldNode, final Node node) {
+                        if (node != null) {
+                            node.setStyle("-fx-background-color: #4682B4;");
+                        }
+                    }
+                });
                 series.getData().add(data);
             }
         }
 
-        scatterChart.getData().add(series);
+
         scatterChart.getStylesheets().add(("colored-chart.css"));
+        scatterChart.getData().add(series);
         scatterChart.setLegendVisible(false);
 
         BorderPane scatterChartPane = new BorderPane();

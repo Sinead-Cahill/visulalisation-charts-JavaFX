@@ -28,6 +28,8 @@ public class AreaChartInteractive extends Pane {
     }
 
     public void displayGraph(){
+        getChildren().clear();
+
         // Zoom Buttons
         Button allDataBtn = new Button("All Data");
         Button threeMonthsBtn = new Button("3 Months");
